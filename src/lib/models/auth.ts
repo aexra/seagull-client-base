@@ -10,6 +10,11 @@ export interface ILoginRequest {
   password?: string;
 }
 
+export interface IRefreshRequest {
+  access: string;
+  refresh: string;  
+}
+
 export interface IAuthResponse {
   access: string;
   refresh: string;   
