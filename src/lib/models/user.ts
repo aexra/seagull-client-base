@@ -1,10 +1,3 @@
-interface IAuthContructorProps {
-  login: string;
-  password?: string;
-  access: string;
-  refresh: string;    
-}
-
 interface IUserContructorProps {
   id: string;
   email: string;
@@ -15,20 +8,6 @@ interface IUserContructorProps {
   bannerFilename?: string;
   bannerColor?: string;
   roles: string[];
-}
-
-export class Auth {
-  public login: string;
-  public password?: string;
-  public access: string;
-  public refresh: string;
-  
-  constructor({ login, password, access, refresh }: IAuthContructorProps) {
-    this.login = login;
-    this.password = password;
-    this.access = access;
-    this.refresh = refresh;
-  }
 }
 
 export class User {
