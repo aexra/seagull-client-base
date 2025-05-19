@@ -1,4 +1,8 @@
 #![allow(dead_code)]
+
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Serialize, Deserialize)]
 pub struct AppData {
     pub api_url: String,
     pub access_token: String,
