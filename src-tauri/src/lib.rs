@@ -15,7 +15,7 @@ mod os {
 pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
-            app.manage(Mutex::new(model::appdata::AppData::default()));
+            app.manage(Mutex::new(model::appdata::AppData::load_or_default()));
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())

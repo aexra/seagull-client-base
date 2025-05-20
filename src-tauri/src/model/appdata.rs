@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 
 use serde::{Deserialize, Serialize};
+use crate::os;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct AppData {
@@ -15,6 +16,17 @@ impl Default for AppData {
             api_url: String::from("http://localhost:8080/"),
             access_token: String::from("Aboba"),
             refresh_token: String::from("Bebebe"),
+        }
+    }
+}
+
+impl AppData {
+    pub fn load_or_default() -> Self {
+        match os::appdata::load_appdata() {
+            Ok(data) => data.unwrap(),
+            Err(_) => {
+                AppData::default()
+            }
         }
     }
 }
