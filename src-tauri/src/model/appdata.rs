@@ -23,9 +23,13 @@ impl Default for AppData {
 impl AppData {
     pub fn load_or_default() -> Self {
         match os::appdata::load_appdata() {
-            Ok(data) => data.unwrap(),
+            Ok(data) => data,
             Err(_) => {
-                AppData::default()
+                let data = AppData::default();
+                if let Err(e) = os::appdata::save_appdata(&data) {
+                    panic!("Error while saving default AppData: {}", e);
+                }
+                data
             }
         }
     }

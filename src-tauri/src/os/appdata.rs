@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use crate::model;
 
-pub fn load_appdata() -> Result<Option<model::appdata::AppData>, Box<dyn std::error::Error>> {
+pub fn load_appdata() -> Result<model::appdata::AppData, Box<dyn std::error::Error>> {
     let proj_dirs = ProjectDirs::from("com", "Seagull", "Seagull")
         .ok_or("Failed to determine project directories")?;
     
@@ -12,13 +12,13 @@ pub fn load_appdata() -> Result<Option<model::appdata::AppData>, Box<dyn std::er
     file_path.push("appdata.json");
 
     if !file_path.exists() {
-        return Ok(None);
+        return Err(format!("appdata.json does not exist in file path: {}", file_path.display()).into());
     }
 
     let json = fs::read_to_string(file_path)?;
     let data = serde_json::from_str(&json)?;
     
-    Ok(Some(data))
+    Ok(data)
 }
 
 pub fn save_appdata(data: &model::appdata::AppData) -> Result<(), Box<dyn std::error::Error>> {
