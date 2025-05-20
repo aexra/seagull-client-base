@@ -15,12 +15,12 @@ pub fn set_appdata(
     state: State<'_, Mutex<model::appdata::AppData>>,
     new: model::appdata::AppData,
 ) -> Result<model::appdata::AppData, String> {
-    let mut data = state.lock().unwrap();
-    *data = new;
-
-    if let Err(e) = os::appdata::save_appdata(&data) {
+    if let Err(e) = os::appdata::save_appdata(&new) {
         return Err(format!("Failed to save app data: {}", e));
     }
+    
+    let mut data = state.lock().unwrap();
+    *data = new.clone();
 
     Ok(data.clone())
 }
